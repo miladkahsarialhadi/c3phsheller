@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # C3phsheller is a script for extracting shellcode from a binary.
 # Written by Milad Kahsari Alhadi
 
