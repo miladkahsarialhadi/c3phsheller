@@ -30,7 +30,7 @@ def extract(name):
 def main():
 	
 	if len(sys.argv) != 2:
-		print("Usage: ./c3phalex1n shellcode")
+		print("Usage: ./c3phsheller shellcode")
 
 	else:
 		extract(sys.argv[1])
