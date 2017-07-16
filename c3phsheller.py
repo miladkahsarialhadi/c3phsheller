@@ -6,6 +6,7 @@
 
 import sys
 import os
+import re
 
 def extract(name):
         g1 = "grep '[0-9a-f]:'"
@@ -14,7 +15,7 @@ def extract(name):
         g4 = "cut -f1-6 -d' '"
         g5 = "tr -s ' '"
         g6 = "sed 's/ $//g'"
-        g7 = "sed 's/ /\\x/g'"
+        g7 = "sed 's/ //g'"
         g8 = "paste -d '' -s "
         g9 = "sed 's/^/\"/'"
         g10 = "sed 's/$/\"/g'"
@@ -25,10 +26,15 @@ def extract(name):
 
         cmd3 = str(cmd1) + str(cmd2)
         res = os.popen(cmd3).read()
-        print(res)
+        s = res.replace('"','')
+
+        length = len(s) - 1
+        a = [r'\x' + s[i:i + 2] for i in range(0, length, 2)]
+
+        print(''.join(a))
+
 
 def main():
-
         if len(sys.argv) != 2:
                 print("Usage: ./c3phsheller shellcode")
 
@@ -37,3 +43,4 @@ def main():
 
 if __name__ == "__main__":
         main()
+~              
