@@ -42,4 +42,5 @@ def main():
                 extract(sys.argv[1])
 
 if __name__ == "__main__":
+        print("C3phalex1n Sheller - Written by Milad Kahsari Alhadi")
         main()  
