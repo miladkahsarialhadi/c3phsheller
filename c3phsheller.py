@@ -25,7 +25,6 @@ def extract(name):
 
         cmd3 = str(cmd1) + str(cmd2)
         res = os.popen(cmd3).read()
-        res = res.replace("x","")
         print(res)
 
 def main():
