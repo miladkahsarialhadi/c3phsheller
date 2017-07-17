@@ -6,7 +6,6 @@
 
 import sys
 import os
-import re
 
 def extract(name):
         g1 = "grep '[0-9a-f]:'"
