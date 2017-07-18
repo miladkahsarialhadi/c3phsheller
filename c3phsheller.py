@@ -11,7 +11,7 @@ import re
 def Header():
         print("\n")
         print("=============================================================")
-        print("\n\033[93m\033[1mCephalexin Sheller extracts shellcode (machine code).\033[0m")
+        print("\n\033[93m\033[1mCephalexin Shellcoder extracts shellcode (machine code).\033[0m")
         print("\033[93m\033[1mScript is written by Milad Kahsari Alhadi.\033[0m\n")
         print("=============================================================")
 
