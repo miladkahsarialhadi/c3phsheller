@@ -42,7 +42,7 @@ def ExtractShellcode(_arg_name):
         result = [r'\x' + result[i:i + 2] for i in range(0, length, 2)]
 	
         ObjDumpOutput(_arg_name)
-        print("\033[91m\033[1mShellcode:\033[0m\n")
+        print("\033[91m\033[1mExtracted Shellcode:\033[0m\n")
         print("\t {}". format(''.join(result)))
         print("\n")
 
