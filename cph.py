@@ -18,7 +18,13 @@ def ObjDumpOutput(_arg_name):
         print("\n\033[96m\033[1mObjdump Output:\033[0m")
         output = os.popen("objdump -d -M intel " + str(_arg_name)).read()
         for line in output.split('\n'):
-                print('\t', line)
+                if ((line.find(" 00 ") > 0)):
+                        print("\t\033[91m\033[1m {}\033[0m".format(line))
+                elif ((line.find(" 80 ") > 0)):
+                        print("\t\033[92m\033[1m {}\033[0m".format(line))
+                else:
+                        print('\t', line)
+
 
 def ScanStringSysCalls(_arg_string):
         totalSysCalls = 0
@@ -26,7 +32,6 @@ def ScanStringSysCalls(_arg_string):
 
         for pos, check in enumerate(_arg_string):
                 if check == '\\xcd':
-                        print("\tSystem calls at {} index detected".format(pos))
                         totalSysCalls += 1
 
         print("\n\t\033[95m\033[1mTotal system calls in the shellcode: {}\033[0m\n".format(totalSysCalls))
@@ -38,7 +43,6 @@ def ScanStringNullByte(_arg_string):
         
         for pos, check in enumerate(_arg_string):
                 if check == '\\x00':
-                        print("\tNull byte at {} index detected".format(pos))
                         totalNullByte += 1
 
         print("\n\t\033[95m\033[1mTotal null bytes in the shellcode: {}\033[0m\n".format(totalNullByte))
@@ -66,11 +70,18 @@ def ExtractShellcode(_arg_name):
 	
         ObjDumpOutput(_arg_name)
         print("\033[101m\033[1mExtracted Shellcode:\033[0m\n")
-        print("\t {}".format(''.join(result)))
+        print("\t", end="")
+        StringFind(result)
         print("\n")
 
         ScanStringNullByte(result)
         ScanStringSysCalls(result)
+
+def StringFind(_arg_name):
+        string = ''.join(str(e) for e in _arg_name)
+        
+        print(string.replace(r'\x00','\x1b[91m\\x00\x1b[0m') \
+               .replace(r'\xcd\x80','\x1b[92m\\xcd\\x80\x1b[0m'))
 
 def EntryPoint():
         if len(sys.argv) != 2:
