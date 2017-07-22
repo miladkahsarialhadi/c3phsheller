@@ -27,7 +27,7 @@ def HelpMenu():
 	
 def ObjDumpOutput(_arg_name):
 	print("\n\033[96m\033[1mObjdump Output:\033[0m")
-	output = os.popen("objdump -d -M intel " + str(_arg_name)).read()
+	output = os.popen("objdump -d " + str(_arg_name)).read()
 	for line in output.split('\n'):
 		if ((line.find(" 00 ") > 0)):
 			print("\t\033[91m\033[1m {}\033[0m".format(line))
