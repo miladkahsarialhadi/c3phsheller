@@ -3,8 +3,10 @@
 # Cephalexin Shellcoder is a script for extracting shellcode from a binary.
 # Written by Milad Kahsari Alhadi
 
+import subprocess
 import sys
 import os
+
 
 def Header():
 	print("\n")
@@ -39,7 +41,8 @@ def StringFind(_arg_name):
 
 	print(string.replace(r'\x00','\x1b[91m\\x00\x1b[0m') \
 	.replace(r'\xcd\x80','\x1b[92m\\xcd\\x80\x1b[0m'))
-	
+    
+    
 def ScanStringSysCalls(_arg_string):
 	totalSysCalls = 0
 	print("\033[92m\033[1mSystem Calls Detected:\033[0m\n")
@@ -62,25 +65,33 @@ def ScanStringNullByte(_arg_string):
 	print("\n\t\033[95m\033[1mTotal null bytes in the shellcode: {}\033[0m\n".format(totalNullByte))
 
 
+
 def ExtractShellcodeArm(_arg_name):
-	g1 = "grep '^ '"
-	g2 = "cut -f2"
-
-	objdump = "objdump -d " + str(_arg_name) + "|" + g1 + "|" + g2 
-	result = os.popen(objdump).read()
-	result = result.replace('\n','')
-	result = result.replace(' ','')
-	length = len(result) - 1
-	result = [r'\x' + result[i:i + 2] for i in range(0, length, 2)]
-
 	ObjDumpOutput(_arg_name)
 	print("\033[101m\033[1mExtracted Shellcode:\033[0m\n")
-	print("\t", end="")
-	StringFind(result)
+	
+	proc = subprocess.Popen(['objdump','-d', '--endian=big',_arg_name], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	
+	while True:
+		line = proc.stdout.readline()
+		if line != b'':
+			array = line.decode().rstrip().split(':')
+			if len(array) > 1:
+				if array[1]:
+					array2 =  array[1].split(' ')
+					array2 = array2[0].lstrip().rstrip()
+					if array2:
+						sc_part = '\t"'
+						sc_part += '\\x'
+						sc_part += '\\x'.join(a+b for a,b in zip(array2[::2], array2[1::2]))
+						sc_part += '"'
+						print(sc_part)
+		else:
+		   break
+	
 	print("\n")
-
-	ScanStringNullByte(result)
-	ScanStringSysCalls(result)
+	ScanStringNullByte(sc_part)
+	ScanStringSysCalls(sc_part)
 	
 def ExtractShellcodeIntel(_arg_name):
         g1 = "grep '[0-9a-f]:'"
