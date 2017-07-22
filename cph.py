@@ -91,7 +91,6 @@ def ExtractShellcodeArm(_arg_name):
 	
 	print("\n")
 	ScanStringNullByte(sc_part)
-	ScanStringSysCalls(sc_part)
 	
 def ExtractShellcodeIntel(_arg_name):
         g1 = "grep '[0-9a-f]:'"
