@@ -19,10 +19,10 @@ def Header():
 def HelpMenu():
 	print("\n")
 	print("\033[92m\033[1m\tUsage: ./cph.py [Arguments] [BinaryFile]\033[0m\n")
-	print("\t\033[93m\033[1mArguments\t\t\tDescription\033[0m\n")
-	print("\t\033[90m\033[1m--help\t\t\t\tShows help menu\033[0m")
-	print("\t\033[90m\033[1m--arm\t\t\t\tExtracts shellcode from an arm binary\033[0m")
-	print("\t\033[90m\033[1m--intel\t\t\t\tExtracts shellcode from an intel binary\033[0m")
+	print("\t\033[95m\033[1mArguments\t\t\tDescription\033[0m\n")
+	print("\t\033[94m\033[1m--help\t\t\t\tShows help menu\033[0m")
+	print("\t\033[94m\033[1m--arm\t\t\t\tExtracts shellcode from an arm binary\033[0m")
+	print("\t\033[94m\033[1m--intel\t\t\t\tExtracts shellcode from an intel binary\033[0m")
 	print("\n")
 	
 def ObjDumpOutput(_arg_name):
