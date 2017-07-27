@@ -96,7 +96,7 @@ def ExtractShellcodeIntel(_arg_name):
         g1 = "grep '[0-9a-f]:'"
         g2 = "grep -v 'file'"
         g3 = "cut -f2 -d:"
-        g4 = "cut -f1-6 -d' '"
+        g4 = "cut -f1-7 -d' '"
         g5 = "tr -s ' '"
         g6 = "sed 's/ $//g'"
         g7 = "sed 's/ //g'"
